@@ -1,6 +1,17 @@
 import { Config } from '@stencil/core';
 import { promises as fs } from 'fs';
 import { JsonDocs } from '@stencil/core/internal';
+import { postcss } from '@stencil/postcss';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
+import cssnano from 'cssnano';
+import purgecss from '@fullhuman/postcss-purgecss';
+
+const purge = purgecss({
+  content: ['./src/**/*.tsx', './src/index.html'],
+
+  defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || []
+});
 
 async function generateCustomElementsJson(docsData: JsonDocs) {
   const jsonData = {
@@ -17,48 +28,58 @@ async function generateCustomElementsJson(docsData: JsonDocs) {
           type: prop.type,
           description: prop.docs,
           defaultValue: prop.default,
-          required: prop.required,
+          required: prop.required
         })),
 
       events: component.events.map((event) => ({
         name: event.event,
-        description: event.docs,
+        description: event.docs
       })),
 
       methods: component.methods.map((method) => ({
         name: method.name,
         description: method.docs,
-        signature: method.signature,
+        signature: method.signature
       })),
 
       slots: component.slots.map((slot) => ({
         name: slot.name,
-        description: slot.docs,
+        description: slot.docs
       })),
 
       cssProperties: component.styles
         .filter((style) => style.annotation === 'prop')
         .map((style) => ({
           name: style.name,
-          description: style.docs,
+          description: style.docs
         })),
 
       cssParts: component.parts.map((part) => ({
         name: part.name,
-        description: part.docs,
-      })),
-    })),
+        description: part.docs
+      }))
+    }))
   };
 
   await fs.writeFile(
     './custom-elements.json',
-    JSON.stringify(jsonData, null, 2),
+    JSON.stringify(jsonData, null, 2)
   );
 }
 
 export const config: Config = {
   namespace: 'stencil-boilerplate',
   taskQueue: 'async',
+  globalStyle: "src/styles/global.css",
+  plugins: [
+   postcss({
+      plugins: [
+        tailwindcss('./tailwind.config.js'),
+        autoprefixer(),
+        ...(process.env.NODE_ENV === 'production' ? [purge, cssnano()] : [])
+      ]
+    })
+  ],
   outputTargets: [
     {
       type: 'dist',
@@ -67,13 +88,14 @@ export const config: Config = {
     {
       type: 'docs-readme'
     },
-    { 
+    {
       type: 'docs-custom',
       generator: generateCustomElementsJson
     },
     {
       type: 'www',
-      serviceWorker: null // disable service workers
+      serviceWorker: null, // disable service workers
+      baseUrl: 'http://localhost:5000'
     }
   ]
 };
