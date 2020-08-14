@@ -10,7 +10,7 @@ export default {
   }
 };
 
-export const basic = ({ first, middle, last }) => html`
+export const basic = ({ first, middle }) => html`
   <my-component
     first="${first}"
     middle="${middle}"
