@@ -1,6 +1,8 @@
 {
     "parserOptions": {
-      "project": "./tsconfig.json"
+      "ecmaVersion": 7,
+      "project": "./tsconfig.json",
+      "sourceType": "module"
     },
     "extends": [
       "prettier",

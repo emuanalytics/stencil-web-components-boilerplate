@@ -24,7 +24,8 @@
     "start": "run-p dev storybook",
     "storybook": "start-storybook -p 6006 -s dist/",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "format": "prettier --write \"src/**/*.{ts,js}\""
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",

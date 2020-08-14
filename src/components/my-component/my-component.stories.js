@@ -6,15 +6,19 @@ export default {
   argTypes: {
     first: { control: { type: 'text' } },
     middle: { control: { type: 'text' } },
-    last: { control: { type: 'text' } },
+    last: { control: { type: 'text' } }
   }
 };
 
 export const basic = ({ first, middle, last }) => html`
-<my-component first="${first}" middle="${middle}" last="'Don't call me a framework' JS"></my-component>
+  <my-component
+    first="${first}"
+    middle="${middle}"
+    last="'Don't call me a framework' JS"
+  ></my-component>
 `;
-basic.args = { 
-    first: "Stencil", 
-    middle: "😎",
-    last: "'Don't call me a framework' JS",
+basic.args = {
+  first: 'Stencil',
+  middle: '😎',
+  last: "'Don't call me a framework' JS"
 };
