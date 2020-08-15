@@ -70,9 +70,10 @@ async function generateCustomElementsJson(docsData: JsonDocs) {
 export const config: Config = {
   namespace: 'stencil-boilerplate',
   taskQueue: 'async',
-  globalStyle: "src/styles/global.css",
+  globalStyle: 'src/styles/global.css',
+  globalScript: 'src/global.ts',
   plugins: [
-   postcss({
+    postcss({
       plugins: [
         tailwindcss('./tailwind.config.js'),
         autoprefixer(),
@@ -97,5 +98,8 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
       baseUrl: 'http://localhost:5000'
     }
-  ]
+  ],
+  devServer: {
+    openBrowser: false
+  }
 };
