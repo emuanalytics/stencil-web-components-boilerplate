@@ -10,8 +10,9 @@ describe('my-component', () => {
     expect(root).toEqualHtml(`
       <my-component>
         <mock:shadow-root>
-          <div>
+          <div class="font-sans">
             Hello, World! I'm
+            <span class="text-red-600"></span>
           </div>
         </mock:shadow-root>
       </my-component>
@@ -26,8 +27,9 @@ describe('my-component', () => {
     expect(root).toEqualHtml(`
       <my-component first="Stencil" last="'Don't call me a framework' JS">
         <mock:shadow-root>
-          <div>
-            Hello, World! I'm Stencil 'Don't call me a framework' JS
+          <div class="font-sans">
+            Hello, World! I'm
+            <span class="text-red-600">Stencil 'Don't call me a framework' JS</span>
           </div>
         </mock:shadow-root>
       </my-component>
