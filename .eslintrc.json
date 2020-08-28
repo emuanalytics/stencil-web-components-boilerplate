@@ -8,5 +8,13 @@
       "prettier",
       "prettier/@typescript-eslint",
       "plugin:@stencil/recommended"
-    ]
+    ],
+    "rules": {
+      "@stencil/strict-boolean-conditions": 0
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   }
